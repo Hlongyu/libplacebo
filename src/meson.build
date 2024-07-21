@@ -47,7 +47,7 @@ int main(void) {
 }'''
 
 if not cc.links(atomic_test)
-  build_deps += cc.find_library('atomic')
+ # build_deps += cc.find_library('atomic')
 endif
 
 
