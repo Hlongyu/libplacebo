@@ -409,7 +409,7 @@ c_opts = []
 
 if cc.get_id() == 'msvc'
   c_opts += [
-    '/std:c11'
+    '/experimental:c11atomics'
   ]
 else
   c_opts += [
