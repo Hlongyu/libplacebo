@@ -386,27 +386,44 @@ conf_internal.set('BUILD_FIX_VER', fixver)
 conf_internal.set('PL_DEBUG_ABORT', get_option('debug-abort'))
 
 
-### Global build options
-build_opts = [
-  
-]
+
 
 link_args = []
 
 cc = meson.get_compiler('c')
 cxx = meson.get_compiler('cpp')
 
-c_opts = [
-  '-D_ISOC99_SOURCE', '-D_ISOC11_SOURCE', '-D_GNU_SOURCE', '-U__STRICT_ANSI__',
-  '-Wmissing-prototypes',
+### Global build options
 
-  # Warnings to ignore
-  '-Wno-sign-compare', '-Wno-unused-parameter',
-  '-Wno-missing-field-initializers', '-Wno-type-limits',
+build_opts = []
 
-  # Warnings to treat as errors
-  '-Werror=implicit-function-declaration',
-]
+if cc.get_id() != 'msvc'
+  build_opts += [
+    # Warnings
+    '-Wshadow', '-Wparentheses', '-Wpointer-arith',
+    '-fno-math-errno',
+  ]
+endif
+
+c_opts = []
+
+if cc.get_id() == 'msvc'
+  c_opts += [
+    '/D_ISOC99_SOURCE', '/D_ISOC11_SOURCE', '/D_GNU_SOURCE', '/U__STRICT_ANSI__',
+    '/W4',  
+    '/wd4018',  
+    '/wd4100',  
+    '/WX', 
+  ]
+else
+  c_opts += [
+    '-D_ISOC99_SOURCE', '-D_ISOC11_SOURCE', '-D_GNU_SOURCE', '-U__STRICT_ANSI__',
+    '-Wmissing-prototypes',
+    '-Wno-sign-compare', '-Wno-unused-parameter',
+    '-Wno-missing-field-initializers', '-Wno-type-limits',
+    '-Werror=implicit-function-declaration',
+  ]
+endif
 
 if cc.has_argument('-Wincompatible-pointer-types')
   c_opts += ['-Werror=incompatible-pointer-types']
