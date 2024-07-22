@@ -42,9 +42,6 @@
 #elif defined(__GNUC__)
 #define PL_PRINTF(fmt, va) __attribute__ ((format(printf, fmt, va))) \
                            __attribute__ ((nonnull(fmt)))
-#elif defined(_MSC_VER)
-#define PL_PRINTF(fmt, va) __declspec(format("printf", fmt, va)) \
-                           __declspec(nonnull(fmt))
 #else
 #define PL_PRINTF(fmt, va) 
 #endif
