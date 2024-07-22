@@ -284,17 +284,27 @@ uint64_t pl_cache_signature(pl_cache cache)
 #define CACHE_VERSION 1
 #define PAD_ALIGN(x)  PL_ALIGN2(x, sizeof(uint32_t))
 
-struct __attribute__((__packed__)) cache_header {
+#ifdef _MSC_VER
+#define PACKED_STRUCT __pragma(pack(push, 1))
+#define UNPACKED_STRUCT __pragma(pack(pop))
+#else
+#define PACKED_STRUCT __attribute__((__packed__))
+#define UNPACKED_STRUCT
+#endif
+
+PACKED_STRUCT
+struct cache_header {
     char     magic[8];
     uint32_t version;
     uint32_t num_entries;
-};
+} UNPACKED_STRUCT;
 
-struct __attribute__((__packed__)) cache_entry {
+PACKED_STRUCT
+struct cache_entry {
     uint64_t key;
     uint64_t size;
     uint64_t hash;
-};
+} UNPACKED_STRUCT;
 
 pl_static_assert(sizeof(struct cache_header) % alignof(struct cache_entry) == 0);
 
