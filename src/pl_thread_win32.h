@@ -124,7 +124,7 @@ typedef HANDLE pl_thread;
 #define PL_THREAD_RETURN() return 0
 
 static inline int pl_thread_create(pl_thread *thread,
-                                   PL_THREAD_VOID (*fun)(void *),
+                                   unsigned (__stdcall *fun)(void *),
                                    void *__restrict arg)
 {
     *thread = (HANDLE) _beginthreadex(NULL, 0, fun, arg, 0, NULL);
