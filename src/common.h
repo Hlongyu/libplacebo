@@ -46,7 +46,11 @@
 #define PL_PRINTF(fmt, va)
 #endif
 
+#ifdef _MSC_VER
+#define PL_NOINLINE __declspec(noinline)
+#else
 #define PL_NOINLINE __attribute__((noinline))
+#endif
 
 #include "os.h"
 
