@@ -388,9 +388,7 @@ conf_internal.set('PL_DEBUG_ABORT', get_option('debug-abort'))
 
 ### Global build options
 build_opts = [
-  # Warnings
-  '-Wshadow', '-Wparentheses', '-Wpointer-arith',
-  '-fno-math-errno',
+  
 ]
 
 link_args = []
