@@ -46,7 +46,7 @@ int main(void) {
   atomic_init(&x32, 0);
 }'''
 
-if not cc.links(atomic_test)
+if not cc.links(atomic_test) and cc.get_id() != 'msvc'
  build_deps += cc.find_library('atomic')
 endif
 
