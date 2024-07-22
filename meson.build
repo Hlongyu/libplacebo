@@ -410,10 +410,8 @@ c_opts = []
 if cc.get_id() == 'msvc'
   c_opts += [
     '/D_ISOC99_SOURCE', '/D_ISOC11_SOURCE', '/D_GNU_SOURCE', '/U__STRICT_ANSI__',
-    '/W4',  
     '/wd4018',  
-    '/wd4100',  
-    '/WX', 
+    '/wd4100',
   ]
 else
   c_opts += [
